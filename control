@@ -1,0 +1,9 @@
+Package: org.thebigboss.bartoggle
+Name: Background App Refresh Flipswitch
+Depends: mobilesubstrate, com.a3tweaks.flipswitch, firmware (>= 7.0)
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Toggle for Background App Refresh option.
+Maintainer: PoomSmart
+Author: PoomSmart
+Section: Addons (Flipswitch)
