@@ -1,6 +1,3 @@
 obj
 .theos
-theos
-_
 *.deb
-FS*.h

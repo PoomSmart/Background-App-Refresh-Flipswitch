@@ -1,5 +1,5 @@
-#import "FSSwitchDataSource.h"
-#import "FSSwitchPanel.h"
+#import <Flipswitch/FSSwitchDataSource.h>
+#import <Flipswitch/FSSwitchPanel.h>
 
 @interface BARToggleSwitch : NSObject <FSSwitchDataSource>
 @end

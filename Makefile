@@ -1,10 +1,10 @@
-ARCHS = armv7 arm64
+DEBUG = 0
+PACKAGE_VERSION = 0.0.2
 
-include theos/makefiles/common.mk
+include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = BARToggle
 BARToggle_FILES = Switch.xm
-BARToggle_FRAMEWORKS = UIKit
 BARToggle_PRIVATEFRAMEWORKS = ManagedConfiguration
 BARToggle_LIBRARIES = flipswitch
 BARToggle_INSTALL_PATH = /Library/Switches
