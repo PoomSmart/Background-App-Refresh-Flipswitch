@@ -1,5 +1,6 @@
 #import <Flipswitch/FSSwitchDataSource.h>
 #import <Flipswitch/FSSwitchPanel.h>
+#import "../../PS.h"
 
 @interface BARToggleSwitch : NSObject <FSSwitchDataSource>
 @end
@@ -14,7 +15,10 @@
 
 - (FSSwitchState)stateForSwitchIdentifier:(NSString *)switchIdentifier
 {
-	return [[%c(MCProfileConnection) sharedConnection] isAutomaticAppUpdatesAllowed] ? FSSwitchStateOn : FSSwitchStateOff;
+	BOOL enabled = [[%c(MCProfileConnection) sharedConnection] isAutomaticAppUpdatesAllowed];
+	if (isiOS9Up)
+		enabled &= ![[NSProcessInfo processInfo] isLowPowerModeEnabled];
+	return enabled ? FSSwitchStateOn : FSSwitchStateOff;
 }
 
 - (void)applyState:(FSSwitchState)newState forSwitchIdentifier:(NSString *)switchIdentifier
@@ -22,7 +26,7 @@
 	if (newState == FSSwitchStateIndeterminate)
 		return;
 	[[%c(MCProfileConnection) sharedConnection] setAutomaticAppUpdatesAllowed:newState == FSSwitchStateOn];
-	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("kKeepAppsUpToDateEnabledChangedNotification"), nil, nil, NO);
+	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("kKeepAppsUpToDateEnabledChangedNotification"), nil, nil, YES);
 }
 
 @end
