@@ -26,7 +26,5 @@
 	<string>3.0</string>
 	<key>NSPrincipalClass</key>
 	<string>BARToggleSwitch</string>
-	<key>alternate-action-url</key>
-	<string>prefs:root=General&amp;path=AUTO_CONTENT_DOWNLOAD</string>
 </dict>
 </plist>
