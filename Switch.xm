@@ -1,36 +1,31 @@
+#import <Foundation/Foundation.h>
 #import <Flipswitch/FSSwitchDataSource.h>
 #import <Flipswitch/FSSwitchPanel.h>
-#import "../../PS.h"
 
-@interface BARToggleSwitch : NSObject <FSSwitchDataSource>
+@interface BackgroundAppRefreshSwitch : NSObject <FSSwitchDataSource>
 @end
 
 @interface MCProfileConnection : NSObject
-+ (id)sharedConnection;
++ (instancetype)sharedConnection;
 - (BOOL)isAutomaticAppUpdatesAllowed;
-- (void)setAutomaticAppUpdatesAllowed:(BOOL)allow;
+- (void)setAutomaticAppUpdatesAllowed:(BOOL)allowed;
 @end
 
-@implementation BARToggleSwitch
+@implementation BackgroundAppRefreshSwitch
 
-- (FSSwitchState)stateForSwitchIdentifier:(NSString *)switchIdentifier
-{
-	BOOL enabled = [[%c(MCProfileConnection) sharedConnection] isAutomaticAppUpdatesAllowed];
-	if (isiOS9Up)
-		enabled &= ![[NSProcessInfo processInfo] isLowPowerModeEnabled];
+- (FSSwitchState)stateForSwitchIdentifier:(NSString *)switchIdentifier {
+	BOOL enabled = [[%c(MCProfileConnection) sharedConnection] isAutomaticAppUpdatesAllowed] && ![[NSProcessInfo processInfo] isLowPowerModeEnabled];
 	return enabled ? FSSwitchStateOn : FSSwitchStateOff;
 }
 
-- (void)applyState:(FSSwitchState)newState forSwitchIdentifier:(NSString *)switchIdentifier
-{
+- (void)applyState:(FSSwitchState)newState forSwitchIdentifier:(NSString *)switchIdentifier {
 	if (newState == FSSwitchStateIndeterminate)
 		return;
 	[[%c(MCProfileConnection) sharedConnection] setAutomaticAppUpdatesAllowed:newState == FSSwitchStateOn];
 	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("kKeepAppsUpToDateEnabledChangedNotification"), nil, nil, YES);
 }
 
-- (void)applyAlternateActionForSwitchIdentifier:(NSString *)switchIdentifier
-{
+- (void)applyAlternateActionForSwitchIdentifier:(NSString *)switchIdentifier {
 	NSURL *url = [NSURL URLWithString:@"prefs:root=General&path=AUTO_CONTENT_DOWNLOAD/AUTO_CONTENT_DOWNLOAD"];
 	[[FSSwitchPanel sharedPanel] openURLAsAlternateAction:url];
 }

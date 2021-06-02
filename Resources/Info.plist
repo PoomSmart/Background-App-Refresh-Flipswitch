@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>BARToggle</string>
+	<string>BackgroundAppRefreshFS</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.PS.BARToggle</string>
+	<string>com.PS.BackgroundAppRefreshFS</string>
 	<key>CFBundleDisplayName</key>
 	<string>Background App Refresh</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -22,9 +22,7 @@
 	<string>1.0</string>
 	<key>DTPlatformName</key>
 	<string>iphoneos</string>
-	<key>MinimumOSVersion</key>
-	<string>3.0</string>
 	<key>NSPrincipalClass</key>
-	<string>BARToggleSwitch</string>
+	<string>BackgroundAppRefreshSwitch</string>
 </dict>
 </plist>
